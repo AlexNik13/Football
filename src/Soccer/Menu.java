@@ -161,7 +161,7 @@ public class Menu {
                 clubManager.getLastPlaeyr().changeCharacteristicDefender(
                         characteristicA > 10 ? 10 : characteristicA,
                         characteristicB > 10 ? 10 : characteristicB,
-                        characteristicB > 10 ? 10 : characteristicB);
+                        characteristicC > 10 ? 10 : characteristicB);
 
                 break;
             case 3:
@@ -176,7 +176,7 @@ public class Menu {
                 clubManager.getLastPlaeyr().changeCharacteristicMidfielder(
                         characteristicA > 10 ? 10 : characteristicA,
                         characteristicB > 10 ? 10 : characteristicB,
-                        characteristicB > 10 ? 10 : characteristicB);
+                        characteristicC > 10 ? 10 : characteristicB);
                 break;
             case 4:
                 clubManager.addPlayer(firstName, lastName, number, age, PlayerType.ATTACKER);
@@ -190,7 +190,7 @@ public class Menu {
                 clubManager.getLastPlaeyr().changeCharacteristicAttacker(
                         characteristicA > 10 ? 10 : characteristicA,
                         characteristicB > 10 ? 10 : characteristicB,
-                        characteristicB > 10 ? 10 : characteristicB);
+                        characteristicC > 10 ? 10 : characteristicB);
                 break;
         }
     }

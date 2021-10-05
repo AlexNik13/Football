@@ -4,10 +4,8 @@ import Soccer.Player.Enum.PlayerType;
 import Soccer.Player.Enum.PositionType;
 import Soccer.Player.Enum.Skill;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.text.Format;
+import java.util.*;
 
 public class Player {
     private String firstName;
@@ -144,7 +142,15 @@ public class Player {
 
     @Override
     public String toString() {
-        return this.getName() + ". Номер: " + this.getPlayerNumber() + " " + this.getType().toString().toLowerCase() + ". Позиция: " + this.getPosition()
-                + ". Характеристики: " + this.getCharacteristic();
+        String characteristic = "";
+
+        for (Map.Entry<Skill, Integer> playerCharacteristic : this.getCharacteristic().entrySet()){
+            characteristic += playerCharacteristic + " ";
+        }
+
+        Formatter str = new Formatter();
+        str.format(this.getName() + ". Номер: " + this.getPlayerNumber() + " " + this.getType().toString().toLowerCase() + ". Позиция: " + this.getPosition()
+                + ". Характеристики: " + characteristic);
+        return str.toString();
     }
 }
