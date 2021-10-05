@@ -3,18 +3,30 @@ package Soccer;
 import Soccer.Player.Enum.PlayerType;
 import Soccer.Player.Player;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.SortedMap;
 
 public class Menu {
     private Scanner in = new Scanner(System.in);
     private ClubManager clubManager;
 
+    ArrayList<Player> testPlayer = new ArrayList<>(); // for tests
+
+
     public Menu() {
         clubManager = new ClubManager("My club");
         clubManager.setFootballClub(newFootballClub());
+        // for tests
+        testPlayer.add(new Player("Vasil", "Maradonna", 11, 38, PlayerType.ATTACKER));
+        testPlayer.add(new Player("Pile", "Pilevich", 13, 18, PlayerType.DEFENDER));
+        testPlayer.add(new Player("Паша", "Красовский", 11, 42, PlayerType.GOALKEEPER));
+        testPlayer.add(new Player("Павел", "Воля", 31, 19, PlayerType.MIDFIELDER));
+        testPlayer.add(new Player("Максим", "Ужасный", 54, 45, PlayerType.ATTACKER));
+        //
+
         mainMenu();
     }
-
 
     private FootballClub newFootballClub() {
         System.out.print("Введите название вашего футбольного клуба. ");
@@ -42,6 +54,7 @@ public class Menu {
             System.out.println("3. Добавить играков");
             System.out.println("4. Провести тренеровку");
             System.out.println("5. Удалить игрока");
+            System.out.println("6. Удалить несколько игроков");
             System.out.println("9. Показать команду");
             System.out.println("0. Выход");
             System.out.println("----------------------");
@@ -52,23 +65,24 @@ public class Menu {
                 case 0:
                     menu = false;
                     break;
-
                 case 1:
                     menuCreatePlayer();
                     break;
-
                 case 2:
                     menuAddPlayer();
                     break;
-
+                case 3:
+                    clubManager.addSeveralPlayer(testPlayer);
+                    break;
                 case 4:
                     clubManager.doTraining();
                     break;
-
                 case 5:
                     menuDeletePlaeyr();
                     break;
-
+                case 6:
+                    menuDeleteSeveralPlaeyr();
+                    break;
                 case 9:
                     clubManager.getFootballClub().print();
                     break;
@@ -76,15 +90,31 @@ public class Menu {
         }
     }
 
+    void menuDeleteSeveralPlaeyr(){
+        System.out.println("Удаляем несколько игроков.");
+        System.out.print("С какой позиции начинаем? ");
+        int start = in.nextInt();
+        System.out.print("До какой позиции включительно? ");
+        int end = in.nextInt();
+
+        for (int i = start < end? start:end; i <= (end > start? end:start); i++){
+            clubManager.getPlayerArray().remove((start < end? start:end) - 1);
+        }
+    }
+
     void menuDeletePlaeyr() {
         System.out.print("Введите номер игрока для удаления: ");
         int plaeyrNumber = in.nextInt();
-
+        boolean noSuchNumber = true;
         for (int i = 0; i < clubManager.getPlayerArray().size(); i++) {
             if (clubManager.getPlayerArray().get(i).getPlayerNumber() == plaeyrNumber) {
                 clubManager.getPlayerArray().remove(i);
+                noSuchNumber = false;
                 break;
             }
+        }
+        if(noSuchNumber){
+            System.out.println("Игрока под таким номером нету в команде.");
         }
     }
 
@@ -220,4 +250,6 @@ public class Menu {
         }
         return false;
     }
+
+
 }

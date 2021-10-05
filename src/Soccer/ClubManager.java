@@ -38,6 +38,10 @@ public class ClubManager {
         return name;
     }
 
+    void addSeveralPlayer(ArrayList<Player> list) {
+        getPlayerArray().addAll(list);
+    }
+
     void addPlayer(String firstName, String lastName, int playerNumber, int age, PlayerType type) {
         footballClub.addPlayer(firstName, lastName, playerNumber, age, type);
     }
