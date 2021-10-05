@@ -26,6 +26,52 @@ public class Player {
         this.type = type;
         position = new HashSet<>();
         characteristic = new TreeMap<>();
+        switch (type){
+            case ATTACKER -> addNewCharacteristicAttacker();
+            case DEFENDER -> addNewCharacteristicDefender();
+            case GOALKEEPER ->  addNewCharacteristicGoalkeeper();
+            case MIDFIELDER ->  addNewCharacteristicMidfielder();
+        }
+    }
+
+    public void addNewCharacteristicAttacker(){
+        characteristic.put(Skill.SPEED, 1);
+        characteristic.put(Skill.STRENGTH, 1);
+        characteristic.put(Skill.ACCURACY, 1);
+    }
+    public void addNewCharacteristicDefender(){
+        characteristic.put(Skill.SPEED, 1);
+        characteristic.put(Skill.PASS, 1);
+        characteristic.put(Skill.INTERCEPTION, 1);
+    }
+    public void addNewCharacteristicMidfielder(){
+        characteristic.put(Skill.SPEED, 1);
+        characteristic.put(Skill.TACKLE, 1);
+        characteristic.put(Skill.INTERCEPTION, 1);
+    }
+    public void addNewCharacteristicGoalkeeper(){
+        characteristic.put(Skill.MASTERY, 1);
+        position.add(PositionType.GATE);
+    }
+
+
+    public void changeCharacteristicAttacker(int characteristicA, int characteristicB, int characteristicC){
+        characteristic.put(Skill.SPEED, 1);
+        characteristic.put(Skill.STRENGTH, 1);
+        characteristic.put(Skill.ACCURACY, 1);
+    }
+    public void changeCharacteristicDefender(int characteristicA, int characteristicB, int characteristicC){
+        characteristic.put(Skill.SPEED, 1);
+        characteristic.put(Skill.PASS, 1);
+        characteristic.put(Skill.INTERCEPTION, 1);
+    }
+    public void changeCharacteristicMidfielder(int characteristicA, int characteristicB, int characteristicC){
+        characteristic.put(Skill.SPEED, 1);
+        characteristic.put(Skill.TACKLE, 1);
+        characteristic.put(Skill.INTERCEPTION, 1);
+    }
+    public void changeCharacteristicGoalkeeper(int characteristicA){
+        characteristic.put(Skill.MASTERY, characteristicA);
     }
 
     public int opportunityToTrain(){
@@ -98,7 +144,6 @@ public class Player {
 
     @Override
     public String toString() {
-
         return this.getName() + ". Номер: " + this.getPlayerNumber() + " " + this.getType().toString().toLowerCase() + ". Позиция: " + this.getPosition()
                 + ". Характеристики: " + this.getCharacteristic();
     }

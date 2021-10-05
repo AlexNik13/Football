@@ -46,4 +46,10 @@ public class ClubManager {
         return footballClub.getPlayerArray();
     }
 
+    public Player getLastPlaeyr(){
+        return footballClub.getPlayerArray().get(footballClub.getPlayerArray().size() - 1);
+    }
+
+
+
 }

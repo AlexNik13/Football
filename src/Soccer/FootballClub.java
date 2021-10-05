@@ -35,11 +35,12 @@ public class FootballClub {
     }
 
     public void print() {
+        int i = 1;
         System.out.println("Клуб: " + getName());
         System.out.println("Стадион: " + stadium.getName() + ". На " + stadium.getCapacity() + " человек.");
         System.out.println("Игроки");
         for (Player playar : playerArray) {
-            System.out.println(playar);
+            System.out.println(i++ + " " +playar);
         }
     }
 }
