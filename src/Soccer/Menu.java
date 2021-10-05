@@ -5,7 +5,6 @@ import Soccer.Player.Player;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.SortedMap;
 
 public class Menu {
     private Scanner in = new Scanner(System.in);
@@ -39,6 +38,7 @@ public class Menu {
         String stadiumName = in.next();
 
         System.out.print("Вместимость вашего стадиона: ");
+        checkForNumber();
         int capacity = in.nextInt();
 
         return new FootballClub(name, city, stadiumName, capacity);
@@ -58,7 +58,7 @@ public class Menu {
             System.out.println("9. Показать команду");
             System.out.println("0. Выход");
             System.out.println("----------------------");
-
+            checkForNumber();
             int choice = in.nextInt();
 
             switch (choice) {
@@ -90,15 +90,15 @@ public class Menu {
         }
     }
 
-    void menuDeleteSeveralPlaeyr(){
+    void menuDeleteSeveralPlaeyr() {
         System.out.println("Удаляем несколько игроков.");
         System.out.print("С какой позиции начинаем? ");
         int start = in.nextInt();
         System.out.print("До какой позиции включительно? ");
         int end = in.nextInt();
 
-        for (int i = start < end? start:end; i <= (end > start? end:start); i++){
-            clubManager.getPlayerArray().remove((start < end? start:end) - 1);
+        for (int i = start < end ? start : end; i <= (end > start ? end : start); i++) {
+            clubManager.getPlayerArray().remove((start < end ? start : end) - 1);
         }
     }
 
@@ -113,7 +113,7 @@ public class Menu {
                 break;
             }
         }
-        if(noSuchNumber){
+        if (noSuchNumber) {
             System.out.println("Игрока под таким номером нету в команде.");
         }
     }
@@ -129,68 +129,79 @@ public class Menu {
         String lastName = in.next();
 
         System.out.print("Введите возраст игрока: ");
+        checkForNumber();
         int age = in.nextInt();
 
         System.out.print("Введите номер игрока: ");
+        checkForNumber();
         int number = in.nextInt();
 
         while (checkRepeatPlayerNumber(number)) {
+            checkForNumber();
             number = in.nextInt();
         }
 
         printMenuType();
+        checkForNumber();
         int choice = in.nextInt();
 
         switch (choice) {
             case 1:
                 clubManager.addPlayer(firstName, lastName, number, age, PlayerType.GOALKEEPER);
-                System.out.print("Характеристики? ");
+                System.out.print("Характеристики? \n");
                 System.out.print("Мастерство: ");
+                checkForNumber();
                 characteristicA = in.nextInt();
                 clubManager.getLastPlaeyr().changeCharacteristicGoalkeeper(characteristicA > 10 ? 10 : characteristicA);
                 break;
             case 2:
                 clubManager.addPlayer(firstName, lastName, number, age, PlayerType.DEFENDER);
-                System.out.print("Характеристики? ");
+                System.out.println("Характеристики? \n");
                 System.out.print("Скорость: ");
+                checkForNumber();
                 characteristicA = in.nextInt();
                 System.out.print("Подкат: ");
+                checkForNumber();
                 characteristicB = in.nextInt();
                 System.out.print("Перехват: ");
+                checkForNumber();
                 characteristicC = in.nextInt();
                 clubManager.getLastPlaeyr().changeCharacteristicDefender(
                         characteristicA > 10 ? 10 : characteristicA,
                         characteristicB > 10 ? 10 : characteristicB,
-                        characteristicC > 10 ? 10 : characteristicB);
+                        characteristicC > 10 ? 10 : characteristicC);
 
                 break;
             case 3:
                 clubManager.addPlayer(firstName, lastName, number, age, PlayerType.MIDFIELDER);
-                System.out.print("Характеристики? ");
+                System.out.println("Характеристики? \n");
                 System.out.print("Скорость: ");
+                checkForNumber();
                 characteristicA = in.nextInt();
                 System.out.print("Пас: ");
+                checkForNumber();
                 characteristicB = in.nextInt();
                 System.out.print("Перехват: ");
+                checkForNumber();
                 characteristicC = in.nextInt();
-                clubManager.getLastPlaeyr().changeCharacteristicMidfielder(
-                        characteristicA > 10 ? 10 : characteristicA,
-                        characteristicB > 10 ? 10 : characteristicB,
-                        characteristicC > 10 ? 10 : characteristicB);
+                clubManager.getLastPlaeyr().changeCharacteristicMidfielder( characteristicA > 10 ? 10 : characteristicA, characteristicB > 10 ? 10 : characteristicB, characteristicC > 10 ? 10 : characteristicC);
                 break;
             case 4:
                 clubManager.addPlayer(firstName, lastName, number, age, PlayerType.ATTACKER);
-                System.out.print("Характеристики? ");
+                System.out.println("Характеристики? \n");
                 System.out.print("Скорость: ");
+                checkForNumber();
                 characteristicA = in.nextInt();
                 System.out.print("Сила удара: ");
+                checkForNumber();
                 characteristicB = in.nextInt();
                 System.out.print("Точность удара: ");
+                checkForNumber();
                 characteristicC = in.nextInt();
                 clubManager.getLastPlaeyr().changeCharacteristicAttacker(
                         characteristicA > 10 ? 10 : characteristicA,
                         characteristicB > 10 ? 10 : characteristicB,
-                        characteristicC > 10 ? 10 : characteristicB);
+                        characteristicC > 10 ? 10 : characteristicC);
                 break;
         }
     }
@@ -211,9 +222,11 @@ public class Menu {
         String lastName = in.next();
 
         System.out.print("Введите возраст игрока: ");
+        checkForNumber();
         int age = in.nextInt();
 
         System.out.print("Введите номер игрока: ");
+        checkForNumber();
         int number = in.nextInt();
 
 
@@ -222,6 +235,7 @@ public class Menu {
         }
 
         printMenuType();
+        checkForNumber();
         int choice = in.nextInt();
 
         switch (choice) {
@@ -252,4 +266,10 @@ public class Menu {
     }
 
 
+    private void checkForNumber() {
+        while (!in.hasNextInt()) {
+            System.out.println("Некорректный ввод.");
+            in.next();
+        }
+    }
 }

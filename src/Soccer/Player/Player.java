@@ -54,19 +54,19 @@ public class Player {
 
 
     public void changeCharacteristicAttacker(int characteristicA, int characteristicB, int characteristicC){
-        characteristic.put(Skill.SPEED, 1);
-        characteristic.put(Skill.STRENGTH, 1);
-        characteristic.put(Skill.ACCURACY, 1);
+        characteristic.put(Skill.SPEED, characteristicA);
+        characteristic.put(Skill.STRENGTH, characteristicB);
+        characteristic.put(Skill.ACCURACY, characteristicC);
     }
     public void changeCharacteristicDefender(int characteristicA, int characteristicB, int characteristicC){
-        characteristic.put(Skill.SPEED, 1);
-        characteristic.put(Skill.PASS, 1);
-        characteristic.put(Skill.INTERCEPTION, 1);
+        characteristic.put(Skill.SPEED, characteristicA);
+        characteristic.put(Skill.PASS, characteristicB);
+        characteristic.put(Skill.INTERCEPTION, characteristicC);
     }
     public void changeCharacteristicMidfielder(int characteristicA, int characteristicB, int characteristicC){
-        characteristic.put(Skill.SPEED, 1);
-        characteristic.put(Skill.TACKLE, 1);
-        characteristic.put(Skill.INTERCEPTION, 1);
+        characteristic.put(Skill.SPEED, characteristicA);
+        characteristic.put(Skill.TACKLE, characteristicB);
+        characteristic.put(Skill.INTERCEPTION, characteristicC);
     }
     public void changeCharacteristicGoalkeeper(int characteristicA){
         characteristic.put(Skill.MASTERY, characteristicA);
