@@ -136,7 +136,6 @@ public class Menu {
             clubManager.addSeveralPlayer(playerList);
             playerList.clear();
         }
-
     }
 
     private void printMenuType() {
@@ -148,7 +147,6 @@ public class Menu {
     }
 
     private void menuCreatePlayer() {
-
         playerList.add(createPlayer());
 
         System.out.println("Создать еще игрока? \n\t1. Да \n\t2. Нет");
@@ -214,7 +212,6 @@ public class Menu {
         return player;
     }
 
-
     private boolean checkRepeatPlayerNumber(int number) {
         for (Player player : clubManager.getPlayerArray()) {
             if (player.getPlayerNumber() == number) {
@@ -225,7 +222,6 @@ public class Menu {
         }
         return false;
     }
-
 
     private void checkForNumber() {
         while (!in.hasNextInt()) {
