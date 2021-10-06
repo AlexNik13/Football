@@ -54,7 +54,7 @@ public class Menu {
             System.out.println("Главное меню");
             System.out.println("1. Создать игрока");
             System.out.println("2. Добавить игрока");
-            System.out.println("3. Добавить играков");
+
             System.out.println("4. Провести тренеровку");
             System.out.println("5. Удалить игрока");
             System.out.println("6. Удалить несколько игроков");
