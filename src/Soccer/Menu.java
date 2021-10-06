@@ -1,16 +1,20 @@
 package Soccer;
 
 import Soccer.Player.Enum.PlayerType;
+import Soccer.Player.Enum.Skill;
 import Soccer.Player.Player;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
     private Scanner in = new Scanner(System.in);
     private ClubManager clubManager;
-
+    private ArrayList<Player> playerList;
+    private Player player;
     ArrayList<Player> testPlayer = new ArrayList<>(); // for tests
+
 
     public Menu() {
         clubManager = new ClubManager("My club");
@@ -22,6 +26,7 @@ public class Menu {
         testPlayer.add(new Player("Павел", "Воля", 31, 19, PlayerType.MIDFIELDER));
         testPlayer.add(new Player("Максим", "Ужасный", 54, 45, PlayerType.ATTACKER));
         //
+        playerList = new ArrayList<>();
         mainMenu();
     }
 
@@ -95,8 +100,8 @@ public class Menu {
         System.out.print("До какой позиции включительно? ");
         int end = in.nextInt();
 
-        for (int i = start < end ? start : end; i <= (end > start ? end : start); i++) {
-            clubManager.getPlayerArray().remove((start < end ? start : end) - 1);
+        for (int i = Math.min(start, end); i <= (Math.max(end, start)); i++) {
+            clubManager.getPlayerArray().remove((Math.min(start, end)) - 1);
         }
     }
 
@@ -116,10 +121,49 @@ public class Menu {
         }
     }
 
-    void menuAddPlayer() {
-        int characteristicA;
-        int characteristicB;
-        int characteristicC;
+    private void menuAddPlayer() {
+        player = createPlayer();
+        player = changeCharacter(player);
+        playerList.add(player);
+
+        System.out.println("Добавить еще игрока? \n\t1. Да \n\t2. Нет");
+        checkForNumber();
+        int choice = in.nextInt();
+
+        if (choice == 1) {
+            menuAddPlayer();
+        } else {
+            clubManager.addSeveralPlayer(playerList);
+            playerList.clear();
+        }
+
+    }
+
+    private void printMenuType() {
+        System.out.println("Выберети тип игрока.");
+        System.out.println("1. Голкипер");
+        System.out.println("2. Защитники");
+        System.out.println("3. Полузащитники");
+        System.out.println("4. Нападающие");
+    }
+
+    private void menuCreatePlayer() {
+
+        playerList.add(createPlayer());
+
+        System.out.println("Создать еще игрока? \n\t1. Да \n\t2. Нет");
+        checkForNumber();
+        int choice = in.nextInt();
+
+        if (choice == 1) {
+            menuCreatePlayer();
+        } else {
+            clubManager.addSeveralPlayer(playerList);
+            playerList.clear();
+        }
+    }
+
+    private Player createPlayer(){
         System.out.print("Введите имя игрока: ");
         String firstName = in.next();
 
@@ -145,113 +189,33 @@ public class Menu {
 
         switch (choice) {
             case 1:
-                clubManager.addPlayer(firstName, lastName, number, age, PlayerType.GOALKEEPER);
-                System.out.print("Характеристики? \n");
-                System.out.print("Мастерство: ");
-                checkForNumber();
-                characteristicA = in.nextInt();
-                clubManager.getLastPlaeyr().changeCharacteristicGoalkeeper(characteristicA > 10 ? 10 : characteristicA);
+                player = new Player(firstName, lastName, number, age, PlayerType.GOALKEEPER);
                 break;
             case 2:
-                clubManager.addPlayer(firstName, lastName, number, age, PlayerType.DEFENDER);
-                System.out.println("Характеристики? \n");
-                System.out.print("Скорость: ");
-                checkForNumber();
-                characteristicA = in.nextInt();
-                System.out.print("Подкат: ");
-                checkForNumber();
-                characteristicB = in.nextInt();
-                System.out.print("Перехват: ");
-                checkForNumber();
-                characteristicC = in.nextInt();
-                clubManager.getLastPlaeyr().changeCharacteristicDefender(
-                        characteristicA > 10 ? 10 : characteristicA,
-                        characteristicB > 10 ? 10 : characteristicB,
-                        characteristicC > 10 ? 10 : characteristicC);
-
+                player = new Player(firstName, lastName, number, age, PlayerType.DEFENDER);
                 break;
             case 3:
-                clubManager.addPlayer(firstName, lastName, number, age, PlayerType.MIDFIELDER);
-                System.out.println("Характеристики? \n");
-                System.out.print("Скорость: ");
-                checkForNumber();
-                characteristicA = in.nextInt();
-                System.out.print("Пас: ");
-                checkForNumber();
-                characteristicB = in.nextInt();
-                System.out.print("Перехват: ");
-                checkForNumber();
-                characteristicC = in.nextInt();
-                clubManager.getLastPlaeyr().changeCharacteristicMidfielder( characteristicA > 10 ? 10 : characteristicA, characteristicB > 10 ? 10 : characteristicB, characteristicC > 10 ? 10 : characteristicC);
+                player = new Player(firstName, lastName, number, age, PlayerType.MIDFIELDER);
                 break;
             case 4:
-                clubManager.addPlayer(firstName, lastName, number, age, PlayerType.ATTACKER);
-                System.out.println("Характеристики? \n");
-                System.out.print("Скорость: ");
-                checkForNumber();
-                characteristicA = in.nextInt();
-                System.out.print("Сила удара: ");
-                checkForNumber();
-                characteristicB = in.nextInt();
-                System.out.print("Точность удара: ");
-                checkForNumber();
-                characteristicC = in.nextInt();
-                clubManager.getLastPlaeyr().changeCharacteristicAttacker(
-                        characteristicA > 10 ? 10 : characteristicA,
-                        characteristicB > 10 ? 10 : characteristicB,
-                        characteristicC > 10 ? 10 : characteristicC);
+                player = new Player(firstName, lastName, number, age, PlayerType.ATTACKER);
                 break;
         }
+        return player;
     }
 
-    void printMenuType() {
-        System.out.println("Выберети тип игрока.");
-        System.out.println("1. Голкипер");
-        System.out.println("2. Защитники");
-        System.out.println("3. Полузащитники");
-        System.out.println("4. Нападающие");
-    }
-
-    void menuCreatePlayer() {
-        System.out.print("Введите имя игрока: ");
-        String firstName = in.next();
-
-        System.out.print("Введите фамилию игрока: ");
-        String lastName = in.next();
-
-        System.out.print("Введите возраст игрока: ");
-        checkForNumber();
-        int age = in.nextInt();
-
-        System.out.print("Введите номер игрока: ");
-        checkForNumber();
-        int number = in.nextInt();
-
-        while (checkRepeatPlayerNumber(number)) {
-            number = in.nextInt();
+    private Player changeCharacter(Player player) {
+        System.out.print("Характеристики? \n");
+        for (Map.Entry<Skill, Integer> skil : player.getCharacteristic().entrySet()) {
+            System.out.print(skil.getKey() + " = ");
+            checkForNumber();
+            player.getCharacteristic().put(skil.getKey(), Math.min(10, in.nextInt()));
         }
-
-        printMenuType();
-        checkForNumber();
-        int choice = in.nextInt();
-
-        switch (choice) {
-            case 1:
-                clubManager.addPlayer(firstName, lastName, number, age, PlayerType.GOALKEEPER);
-                break;
-            case 2:
-                clubManager.addPlayer(firstName, lastName, number, age, PlayerType.DEFENDER);
-                break;
-            case 3:
-                clubManager.addPlayer(firstName, lastName, number, age, PlayerType.MIDFIELDER);
-                break;
-            case 4:
-                clubManager.addPlayer(firstName, lastName, number, age, PlayerType.ATTACKER);
-                break;
-        }
+        return player;
     }
 
-    boolean checkRepeatPlayerNumber(int number) {
+
+    private boolean checkRepeatPlayerNumber(int number) {
         for (Player player : clubManager.getPlayerArray()) {
             if (player.getPlayerNumber() == number) {
                 System.out.println("Игрок под таким номером уже есть");
@@ -261,6 +225,7 @@ public class Menu {
         }
         return false;
     }
+
 
     private void checkForNumber() {
         while (!in.hasNextInt()) {

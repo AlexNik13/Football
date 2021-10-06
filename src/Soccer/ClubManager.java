@@ -4,6 +4,7 @@ import Soccer.Player.Enum.PlayerType;
 import Soccer.Player.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClubManager {
     private String name;
@@ -16,15 +17,13 @@ public class ClubManager {
 
     public void doTraining(){
         for(Player player : footballClub.getPlayerArray()){
-            if(player.opportunityToTrain() > 0){
+            if(player.opportunityToTrain()){
                 player.doTrain();
             }else {
                 System.out.println(player.getName() + " Натренирован по максимуму");
             }
         }
     }
-
-
 
     public FootballClub getFootballClub() {
         return footballClub;
@@ -38,22 +37,11 @@ public class ClubManager {
         return name;
     }
 
-    void addSeveralPlayer(ArrayList<Player> list) {
+    void addSeveralPlayer(List<Player> list) {
         getPlayerArray().addAll(list);
-    }
-
-    void addPlayer(String firstName, String lastName, int playerNumber, int age, PlayerType type) {
-        footballClub.addPlayer(firstName, lastName, playerNumber, age, type);
     }
 
     public ArrayList<Player> getPlayerArray(){
         return footballClub.getPlayerArray();
     }
-
-    public Player getLastPlaeyr(){
-        return footballClub.getPlayerArray().get(footballClub.getPlayerArray().size() - 1);
-    }
-
-
-
 }

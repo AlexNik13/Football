@@ -52,6 +52,11 @@ public class Player {
         position.add(PositionType.GATE);
     }
 
+    public Map<Skill, Integer> changeCharacteristic(Skill key, Integer value) {
+        this.characteristic.replace(key, value);
+        return this.characteristic;
+    }
+
 
     public void changeCharacteristicAttacker(int characteristicA, int characteristicB, int characteristicC){
         characteristic.put(Skill.SPEED, characteristicA);
@@ -72,15 +77,26 @@ public class Player {
         characteristic.put(Skill.MASTERY, characteristicA);
     }
 
-    public int opportunityToTrain(){
-        int size = characteristic.size() * 10;
-        for (int i = 0; i < characteristic.size(); i++){
-            size -= characteristic.get(characteristic.keySet().toArray()[i]) ;
+    public boolean opportunityToTrain(){
+        for (Skill key : characteristic.keySet()) {
+           int value = characteristic.get(key);
+           if (value < 10) {
+               return true;
+           }
         }
-        return size;
-    }
+        return false;
+
+//        int size = characteristic.size() * 10;
+//        for (int i = 0; i < characteristic.size(); i++){
+//            size -= characteristic.get(characteristic.keySet().toArray()[i]) ;
+//        }
+//        return size;
+        }
 
     public void doTrain(){
+       Set<Skill> skills = characteristic.keySet();
+       List<Skill> skills1 = new ArrayList<>(skills);
+
         while (true){
            int i = (int)( Math.random()*1000) % characteristic.size();
 
