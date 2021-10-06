@@ -12,7 +12,6 @@ public class Menu {
 
     ArrayList<Player> testPlayer = new ArrayList<>(); // for tests
 
-
     public Menu() {
         clubManager = new ClubManager("My club");
         clubManager.setFootballClub(newFootballClub());
@@ -23,7 +22,6 @@ public class Menu {
         testPlayer.add(new Player("Павел", "Воля", 31, 19, PlayerType.MIDFIELDER));
         testPlayer.add(new Player("Максим", "Ужасный", 54, 45, PlayerType.ATTACKER));
         //
-
         mainMenu();
     }
 
@@ -229,7 +227,6 @@ public class Menu {
         checkForNumber();
         int number = in.nextInt();
 
-
         while (checkRepeatPlayerNumber(number)) {
             number = in.nextInt();
         }
@@ -264,7 +261,6 @@ public class Menu {
         }
         return false;
     }
-
 
     private void checkForNumber() {
         while (!in.hasNextInt()) {
