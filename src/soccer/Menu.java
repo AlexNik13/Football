@@ -50,6 +50,10 @@ public class Menu {
         return new FootballClub(name, city, stadiumName, capacity);
     }
 
+    void playerMenu(){
+
+    }
+
     void mainMenu() {
         boolean menu = true;
 

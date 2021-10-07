@@ -2,7 +2,6 @@ package soccer;
 
 import soccer.player.Enum.PlayerType;
 import soccer.player.Player;
-import soccer.player.PlayerList;
 
 import java.util.ArrayList;
 
@@ -44,5 +43,19 @@ public class FootballClub {
         for (Player playar : playerArray) {
             System.out.println(i++ + " " +playar);
         }
+    }
+
+    public void printPlayer() {
+        int i = 1;
+        System.out.println("Игроки");
+        for (Player playar : playerArray) {
+            System.out.println(i++ + " " +playar);
+        }
+    }
+
+    public void printInfo(){
+        System.out.println("Клуб: " + getName());
+        System.out.println("Стадион: " + stadium.getName() + ". На " + stadium.getCapacity() + " человек.");
+        System.out.println("Количество игроков: " + playerArray.size());
     }
 }
