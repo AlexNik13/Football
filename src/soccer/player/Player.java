@@ -1,10 +1,9 @@
-package Soccer.Player;
+package soccer.player;
 
-import Soccer.Player.Enum.PlayerType;
-import Soccer.Player.Enum.PositionType;
-import Soccer.Player.Enum.Skill;
+import soccer.player.Enum.PlayerType;
+import soccer.player.Enum.PositionType;
+import soccer.player.Enum.Skill;
 
-import java.text.Format;
 import java.util.*;
 
 public class Player {
@@ -15,6 +14,7 @@ public class Player {
     private PlayerType type;
     private Map<Skill, Integer> characteristic;
     private Set<PositionType> position;
+    private String condition;
 
     public Player(String firstName, String lastName, int playerNumber, int age, PlayerType type) {
         this.firstName = firstName;
@@ -85,12 +85,6 @@ public class Player {
            }
         }
         return false;
-
-//        int size = characteristic.size() * 10;
-//        for (int i = 0; i < characteristic.size(); i++){
-//            size -= characteristic.get(characteristic.keySet().toArray()[i]) ;
-//        }
-//        return size;
         }
 
     public void doTrain(){
@@ -154,6 +148,14 @@ public class Player {
 
     public void setPosition(PositionType type) {
         this.position.add(type);
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     @Override

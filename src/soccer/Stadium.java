@@ -1,4 +1,4 @@
-package Soccer;
+package soccer;
 
 public class Stadium {
     private String name;

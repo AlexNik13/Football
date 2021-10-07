@@ -1,7 +1,6 @@
-package Soccer;
+package soccer;
 
-import Soccer.Player.Enum.PlayerType;
-import Soccer.Player.Player;
+import soccer.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,9 @@ public class ClubManager {
     public FootballClub getFootballClub() {
         return footballClub;
     }
+
+
+
 
     public void setFootballClub(FootballClub footballClub) {
         this.footballClub = footballClub;

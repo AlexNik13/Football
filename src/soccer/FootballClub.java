@@ -1,7 +1,8 @@
-package Soccer;
+package soccer;
 
-import Soccer.Player.Enum.PlayerType;
-import Soccer.Player.Player;
+import soccer.player.Enum.PlayerType;
+import soccer.player.Player;
+import soccer.player.PlayerList;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ public class FootballClub {
     private String city;
     private Stadium stadium;
     private ArrayList<Player> playerArray;
+
 
     public FootballClub(String name, String city, String stadiumName, int capacity) {
         this.name = name;

@@ -1,18 +1,21 @@
-package Soccer;
+package soccer;
 
-import Soccer.Player.Enum.PlayerType;
-import Soccer.Player.Enum.Skill;
-import Soccer.Player.Player;
+import soccer.player.Enum.PlayerType;
+import soccer.player.Enum.Skill;
+import soccer.player.Player;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
+
+
     private Scanner in = new Scanner(System.in);
     private ClubManager clubManager;
     private ArrayList<Player> playerList;
     private Player player;
+
     ArrayList<Player> testPlayer = new ArrayList<>(); // for tests
 
 
@@ -74,7 +77,7 @@ public class Menu {
                 case 2:
                     menuAddPlayer();
                     break;
-                case 3:
+                case 3: // TODO for test. Delete later
                     clubManager.addSeveralPlayer(testPlayer);
                     break;
                 case 4:

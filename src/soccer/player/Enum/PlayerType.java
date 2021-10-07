@@ -1,4 +1,4 @@
-package Soccer.Player.Enum;
+package soccer.player.Enum;
 
 public enum PlayerType {
     ATTACKER, DEFENDER, GOALKEEPER, MIDFIELDER
