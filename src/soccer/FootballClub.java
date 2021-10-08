@@ -10,7 +10,8 @@ public class FootballClub {
     private String city;
     private Stadium stadium;
     private ArrayList<Player> playerArray;
-
+    private boolean manager = false;
+    private ClubManager clubManager;
 
     public FootballClub(String name, String city, String stadiumName, int capacity) {
         this.name = name;
@@ -19,9 +20,10 @@ public class FootballClub {
         playerArray = new ArrayList<Player>();
     }
 
-    void addPlayer(String firstName, String lastName, int playerNumber, int age, PlayerType type){
-        playerArray.add( new Player(firstName, lastName, playerNumber, age, type));
+    public void addPlayer(Player player){
+        playerArray.add(player);
     }
+
 
     public String getName() {
         return name;
@@ -33,6 +35,22 @@ public class FootballClub {
 
     public ArrayList<Player> getPlayerArray() {
         return playerArray;
+    }
+
+    public boolean isManager() {
+        return manager;
+    }
+
+    public void setManager(boolean manager) {
+        this.manager = manager;
+    }
+
+    public ClubManager getClubManager() {
+        return clubManager;
+    }
+
+    public void setClubManager(ClubManager clubManager) {
+        this.clubManager = clubManager;
     }
 
     public void print() {
@@ -58,4 +76,7 @@ public class FootballClub {
         System.out.println("Стадион: " + stadium.getName() + ". На " + stadium.getCapacity() + " человек.");
         System.out.println("Количество игроков: " + playerArray.size());
     }
+
+
+
 }

@@ -1,5 +1,8 @@
-package soccer;
+package soccer.menu;
 
+import soccer.ClubManager;
+import soccer.FootballClub;
+import soccer.player.Enum.ConditionPlayer;
 import soccer.player.Enum.PlayerType;
 import soccer.player.Player;
 
@@ -23,32 +26,6 @@ public class MainMenu {
         generatePlayer();
         System.out.println("Добро пожаловать в игру\n");
     }
-
-
-    /*boolean mainMenu() {
-        System.out.println("Главное меню\n____________");
-        System.out.println("1. Управление игроками.");
-        System.out.println("2. Управление менеджерами.");
-        System.out.println("3. Управление клубами.");
-        checkForNumber();
-        int choice = in.nextInt();
-
-        switch (choice) {
-            case 0:
-                return false;
-
-            case 1:
-                break;
-
-            case 2:
-                break;
-
-            case 3:
-                break;
-
-        }
-        return true;
-    }*/
 
     boolean menuPlayer() {
         System.out.println("Меню свободных игроков\n______________________");
@@ -93,7 +70,8 @@ public class MainMenu {
         return true;
     }
 
-    boolean menuClub() {
+    public boolean menuClub(FootballClub footballClub) {
+        footballClub.printInfo();
         System.out.println("Меню менеджеров\n______________________");
         System.out.println("1. Получить общее инфо по выбраному клубу.");
         System.out.println("2. Получить список игроков клуба.");
@@ -107,23 +85,24 @@ public class MainMenu {
                 return false;
 
             case 1:
-                System.out.println("Получить общее инфо по выбраному клубу\n");
-                System.out.print("Введите имя клуба: ");
-                String name = in.next();
-                if (!printFootballClub(name)) {
-                    System.out.println("Не правильное имя клуба.");
-                }
+                footballClub.printInfo();
+                break;
+
+            case 2:
+                footballClub.printPlayer();
+
                 break;
         }
         return true;
     }
 
-    boolean menuMain() {
+    public boolean menuMain() {
         System.out.println("Главное меню\n____________");
         System.out.println("1. Создать клуб.");
         System.out.println("2. Получить список клубов.");
-        System.out.println("3. Cоздать свободного игрока");
-        System.out.println("4. Получить список свободных игроков");
+        System.out.println("3. Создать менеджера.");
+        System.out.println("4. Создать свободного игрока");
+        System.out.println("5. Получить список свободных игроков");
 
         System.out.println("0. Выход");
 
@@ -137,32 +116,58 @@ public class MainMenu {
             case 1:
                 createFootballClub();
                 break;
+
             case 2:
                 printAllFootballClub();
-                menuClub();
+                System.out.println("Получить общее инфо по выбраному клубу\n");
+                System.out.print("Введите имя клуба: ");
+                String name = in.next();
+                if (!printFootballClub(name)) {
+                    System.out.println("Не правильное имя клуба.");
+                }
+
                 break;
 
             case 3:
-                createFreePlayer();
+                createClubManager();
                 break;
 
             case 4:
+                // TODO выводить менеджеров на экран
+                break;
+
+            case 5:
+                createFreePlayer();
+                break;
+
+            case 6:
                 printFreePlayer();
                 while (menuPlayer()) ;
                 break;
 
-            case 5:
-                break;
         }
-
         return true;
     }
 
-    private void addPlayerToClub() {
+    public void addPlayerToClub() {
         System.out.print("Введите номер игрока: ");
         checkForNumber();
-        int choice = in.nextInt();
-
+        int playerNumber = in.nextInt();
+        System.out.print("Введите имя клуба: ");
+        String name = in.next();
+        for (FootballClub footballClub : footballClubsList) {
+            if (footballClub.getName().toLowerCase().equals(name.toLowerCase())) {
+                for (Player player : playerFreeList) {
+                    if (player.getPlayerNumber() == playerNumber) {
+                        player.setСondition(ConditionPlayer.IN_CLUB);
+                        footballClub.addPlayer(player);
+                        playerFreeList.remove(player);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
     }
 
     private void menuDeleteSeveralFreePlaeyr() {
@@ -266,22 +271,15 @@ public class MainMenu {
         for (FootballClub footballClubs : footballClubsList) {
             System.out.println(i++ + " " + footballClubs.getName());
         }
-
-
     }
 
 
     public boolean printFootballClub(String name) {
         for (FootballClub footballClub : footballClubsList) {
             if (footballClub.getName().toLowerCase().equals(name.toLowerCase())) {
-                footballClub.printInfo();
-                System.out.println("Показать игроков \n1. Да \n2. Нет");
-                checkForNumber();
-                int choice = in.nextInt();
-                if (choice == 1){
-                    footballClub.printPlayer();
-                }
-                    return true;
+
+                while (menuClub(footballClub));
+                return true;
             }
         }
         return false;

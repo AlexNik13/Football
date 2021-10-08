@@ -3,10 +3,9 @@ package soccer.player;
 import soccer.player.Enum.PlayerType;
 import soccer.player.Enum.PositionType;
 import soccer.player.Enum.Skill;
-import soccer.player.Enum.Сondition;
+import soccer.player.Enum.ConditionPlayer;
 
 import java.util.*;
-import java.util.concurrent.locks.Condition;
 
 public class Player {
     private String firstName;
@@ -16,7 +15,7 @@ public class Player {
     private PlayerType type;
     private Map<Skill, Integer> characteristic;
     private Set<PositionType> position;
-    private Сondition сondition;
+    private ConditionPlayer сondition;
 
     public Player(String firstName, String lastName, int playerNumber, int age, PlayerType type) {
         this.firstName = firstName;
@@ -32,7 +31,7 @@ public class Player {
             case GOALKEEPER ->  addNewCharacteristicGoalkeeper();
             case MIDFIELDER ->  addNewCharacteristicMidfielder();
         }
-        сondition = Сondition.FREE;
+        сondition = ConditionPlayer.FREE;
     }
 
     public void addNewCharacteristicAttacker(){
@@ -153,11 +152,11 @@ public class Player {
         this.position.add(type);
     }
 
-    public Сondition getСondition() {
+    public ConditionPlayer getСondition() {
         return сondition;
     }
 
-    public void setСondition(Сondition сondition) {
+    public void setСondition(ConditionPlayer сondition) {
         this.сondition = сondition;
     }
 

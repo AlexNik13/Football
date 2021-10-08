@@ -1,5 +1,5 @@
 package soccer.player.Enum;
 
-public enum Сondition {
+public enum ConditionPlayer {
     FREE, IN_CLUB
 }
