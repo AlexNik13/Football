@@ -5,6 +5,7 @@ import soccer.player.Enum.PositionType;
 import soccer.player.Enum.Skill;
 import soccer.player.Enum.ConditionPlayer;
 
+import java.text.Format;
 import java.util.*;
 
 public class Player {
@@ -104,6 +105,12 @@ public class Player {
         }
     }
 
+    public String getInfo(){
+        Formatter str = new Formatter();
+        str.format(getName() + " " + type.toString().toLowerCase() + " " + getCharacteristic());
+        return str.toString();
+    }
+
     public PlayerType getType() {
         return type;
     }
@@ -152,11 +159,11 @@ public class Player {
         this.position.add(type);
     }
 
-    public ConditionPlayer getСondition() {
+    public ConditionPlayer getCondition() {
         return сondition;
     }
 
-    public void setСondition(ConditionPlayer сondition) {
+    public void setCondition(ConditionPlayer сondition) {
         this.сondition = сondition;
     }
 

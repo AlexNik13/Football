@@ -8,6 +8,7 @@ import java.util.List;
 public class ClubManager {
     private String name;
     private FootballClub footballClub;
+    private boolean free = true;
 
 
     public ClubManager(String name) {
@@ -24,12 +25,17 @@ public class ClubManager {
         }
     }
 
+    public boolean isFree() {
+        return free;
+    }
+
+    public void setFree(boolean free) {
+        this.free = free;
+    }
+
     public FootballClub getFootballClub() {
         return footballClub;
     }
-
-
-
 
     public void setFootballClub(FootballClub footballClub) {
         this.footballClub = footballClub;
@@ -39,11 +45,13 @@ public class ClubManager {
         return name;
     }
 
-    void addSeveralPlayer(List<Player> list) {
+    public void addSeveralPlayer(List<Player> list) {
         getPlayerArray().addAll(list);
     }
 
     public ArrayList<Player> getPlayerArray(){
         return footballClub.getPlayerArray();
     }
+
+
 }
