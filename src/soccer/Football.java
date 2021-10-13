@@ -1,7 +1,6 @@
 package soccer;
 
 import soccer.menu.MainMenu;
-import soccer.player.Player;
 
 public class Football {
 
@@ -13,5 +12,7 @@ public class Football {
         MainMenu mainMenu = new MainMenu();
 
         while (mainMenu.menuMain()) ;
+
+
     }
 }
