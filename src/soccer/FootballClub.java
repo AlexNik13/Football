@@ -17,13 +17,14 @@ public class FootballClub {
         this.name = name;
         this.city = city;
         this.stadium = new Stadium(stadiumName, capacity);
+    }
+    {
         playerArray = new ArrayList<Player>();
     }
 
     public void addPlayer(Player player){
         playerArray.add(player);
     }
-
 
     public String getName() {
         return name;
@@ -76,7 +77,4 @@ public class FootballClub {
         System.out.println("Стадион: " + stadium.getName() + ". На " + stadium.getCapacity() + " человек.");
         System.out.println("Количество игроков: " + playerArray.size());
     }
-
-
-
 }
