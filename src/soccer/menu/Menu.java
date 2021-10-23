@@ -15,7 +15,7 @@ public class Menu extends Controller {
     }
 
     public boolean menuMain() {
-        System.out.println("Главное меню\n____________");
+        System.out.println("\nГлавное меню\n____________");
         System.out.println("1. Создать клуб.");
         System.out.println("2. Получить список клубов.");
         System.out.println("3. Создать менеджера.");
@@ -67,7 +67,7 @@ public class Menu extends Controller {
 
     private boolean menuFreePlayer() {
         printFreePlayer();
-        System.out.println("Меню свободных игроков\n______________________");
+        System.out.println("\nМеню свободных игроков\n______________________");
         System.out.println("1. Добавить свободного игрока.");
         System.out.println("2. Удалить свободного игрока.");
         System.out.println("3. Удалить несколько свободных игрокв.");
@@ -138,15 +138,19 @@ public class Menu extends Controller {
         for (ClubManager clubManager : getClubManagerList()) {
             System.out.println(i++ + ". " + clubManager.getName() + ". Клуб: " + (clubManager.isFree() ? "нет" : clubManager.getFootballClub().getName()));
         }
-
         System.out.print("Введите номер менеджера или 0. для возврата назад: ");
         checkForNumber();
         int numberManager = in.nextInt();
-        if (!getClubManagerList().get(numberManager - 1).isFree()) {
-            while (menuManager(getClubManagerList().get(numberManager - 1))) ;
-        } else {
-            System.out.println("У менеджера нет клуба.");
+        try {
+            if (!getClubManagerList().get(numberManager - 1).isFree()) {
+                while (menuManager(getClubManagerList().get(numberManager - 1))) ;
+            } else {
+                System.out.println("У менеджера нет клуба.");
+            }
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Неверный выбор");
         }
+
     }
 
     public boolean menuFootballClub(FootballClub footballClub) {

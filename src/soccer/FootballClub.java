@@ -46,6 +46,10 @@ public class FootballClub {
         this.manager = manager;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public ClubManager getClubManager() {
         return clubManager;
     }

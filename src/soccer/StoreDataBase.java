@@ -37,8 +37,13 @@ public class StoreDataBase {
         playerFreeList.add(player);
     }
 
-    public Player deleteFreePlayer(int numPlayer){
-        return playerFreeList.remove(numPlayer - 1);
+    public Player deleteFreePlayer(int numPlayer) {
+        try {
+            return playerFreeList.remove(numPlayer - 1);
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Ошибка");
+        }
+        return null;
     }
 
     public void printFreePlayer(){

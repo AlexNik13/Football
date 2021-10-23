@@ -9,6 +9,7 @@ import soccer.player.Player;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.SortedMap;
 
 public class Controller {
     private final Scanner in = new Scanner(System.in);
@@ -22,9 +23,24 @@ public class Controller {
         return in;
     }
 
+    boolean checkNameFootballClub(FootballClub footballClub){
+        for(FootballClub fClub : storeDataBase.getFootballClubsList()){
+            if(fClub.getName().equalsIgnoreCase(footballClub.getName())){
+                System.out.println("Клуб с таким именем уже существует");
+                System.out.println("Выберете другое имя ");
+                footballClub.setName(in.next());
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected void createFootballClub() {
         FootballClub footballClub = Creator.createFootballClub();
-        while (footballClub.getPlayerArray().size() < 11) {
+        while (checkNameFootballClub(footballClub));
+
+        //TODO увеличить до 11 игроков
+        while (footballClub.getPlayerArray().size() < 2) {
             System.out.println("В клубе должно быть минимум 11 игроков. У вас " + (footballClub.getPlayerArray().size() + 1) + "игроков");
             addPlayerToClub(footballClub);
         }
@@ -36,9 +52,14 @@ public class Controller {
         checkForNumber();
         int playerPosition = in.nextInt();
         Player player;
-        player = storeDataBase.deleteFreePlayer(playerPosition);
-        player.setCondition(ConditionPlayer.IN_CLUB);
-        footballClub.addPlayer(player);
+        try {
+            player = storeDataBase.deleteFreePlayer(playerPosition);
+            player.setCondition(ConditionPlayer.IN_CLUB);
+            footballClub.addPlayer(player);
+        }catch (NullPointerException e){
+            System.out.println("Неверный выбор");
+        }
+
     }
 
     protected void createClubManager() {
@@ -53,7 +74,11 @@ public class Controller {
         System.out.println("Введите игрока для удаления от 1 до " + storeDataBase.getPlayerFreeList().size());
         checkForNumber();
         int playerNumber = in.nextInt();
-        storeDataBase.deleteFreePlayer(playerNumber);
+        try {
+            storeDataBase.deleteFreePlayer(playerNumber);
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Ошибка");
+        }
     }
 
     protected void deleteSeveralFreePlayer() {
@@ -63,11 +88,19 @@ public class Controller {
         System.out.print("До какой позиции включительно? ");
         int end = in.nextInt();
         for (int i = Math.min(start, end); i <= (Math.max(end, start)); i++) {
-            storeDataBase.deleteFreePlayer((Math.min(start, end)));
+            try {
+                storeDataBase.deleteFreePlayer((Math.min(start, end)));
+            }catch (IndexOutOfBoundsException e){
+                System.out.println("Неверный выбор ");
+            }
         }
     }
 
     protected void moveFreePlayerToClub() {
+        if(storeDataBase.getFootballClubsList().size() < 1){
+            System.out.println("Нет не одного клуба");
+            return;
+        }
         System.out.print("Введите номер игрока: ");
         checkForNumber();
         int playerNumber = in.nextInt();
@@ -98,8 +131,8 @@ public class Controller {
         ArrayList<Player> playerList = new ArrayList<>();
         Player player;
         int choice = 0;
-        int i = 1;
         do {
+            int i = 1;
             if ((clubManager.getPlayerArray().size() + playerList.size()) < 21) {
                 System.out.println("Игроки:");
                 for (Player footballer : storeDataBase.getPlayerFreeList()) {
@@ -108,20 +141,26 @@ public class Controller {
                 System.out.println("Выберете игрока: ");
                 checkForNumber();
                 int numberPlayer = in.nextInt();
-                player = storeDataBase.deleteFreePlayer(numberPlayer);
-                player.setCondition(ConditionPlayer.IN_CLUB);
-                while (Creator.checkRepeatPlayerNumber(player.getPlayerNumber(), clubManager, playerList)) {
-                    checkForNumber();
-                    numberPlayer = in.nextInt();
-                    player.setPlayerNumber(numberPlayer);
+                try {
+                    player = storeDataBase.deleteFreePlayer(numberPlayer);
+                    player.setCondition(ConditionPlayer.IN_CLUB);
+                    while (Creator.checkRepeatPlayerNumber(player.getPlayerNumber(), clubManager, playerList)) {
+                        checkForNumber();
+                        numberPlayer = in.nextInt();
+                        player.setPlayerNumber(numberPlayer);
+                    }
+                    playerList.add(player);
+                }catch (NullPointerException e){
+                    System.out.println("Неверный выбор");
                 }
-                playerList.add(player);
                 System.out.println("Добавить еще игрока? \n\t1. Да \n\t2. Нет");
                 checkForNumber();
                 choice = in.nextInt();
             } else {
                 System.out.println("В клубе не может быть более 21 игрока.");
+                choice = 2;
             }
+
         } while (choice != 2);
         clubManager.addSeveralPlayer(playerList);
     }
@@ -185,9 +224,13 @@ public class Controller {
         int inManager;
         checkForNumber();
         inManager = in.nextInt();
-        if (storeDataBase.getClubManagerList().get(inManager - 1).isFree()) {
-            storeDataBase.getClubManagerList().get(inManager - 1).setFootballClub(footballClub);
-            footballClub.setManager(true);
+        try {
+            if (storeDataBase.getClubManagerList().get(inManager - 1).isFree()) {
+                storeDataBase.getClubManagerList().get(inManager - 1).setFootballClub(footballClub);
+                footballClub.setManager(true);
+            }
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Неверный выбор");
         }
     }
 
