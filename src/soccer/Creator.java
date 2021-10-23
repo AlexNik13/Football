@@ -53,7 +53,7 @@ public abstract class Creator {
         return false;
     }
 
-    public static ArrayList<Player> createArrayPlayerInClub(ClubManager clubManager) {
+    public static ArrayList<Player> createPlayerInClub(ClubManager clubManager) {
         ArrayList<Player> playerList = new ArrayList<>();
         int choice = 0;
 
