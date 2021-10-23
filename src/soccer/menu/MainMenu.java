@@ -36,7 +36,7 @@ public class MainMenu {
         System.out.println("1. Добавить свободного игрока.");
         System.out.println("2. Удалить свободного игрока.");
         System.out.println("3. Удалить несколько свободных игрокв.");
-        System.out.println("4. Добавить свободного игрока в клуб.");
+        System.out.println("4. Переместить свободного игрока в клуб.");
         System.out.println("0. Вернуться в главное меню");
 
         checkForNumber();

@@ -107,7 +107,21 @@ public class Player {
 
     public String getInfo(){
         Formatter str = new Formatter();
-        str.format(getName() + " " + type.toString().toLowerCase() + " " + getCharacteristic());
+        str.format(getName() + " "+ playerNumber + " " + type.toString().toLowerCase() + " " + getCharacteristic());
+        return str.toString();
+    }
+
+    @Override
+    public String toString() {
+        String characteristic = "";
+
+        for (Map.Entry<Skill, Integer> playerCharacteristic : this.getCharacteristic().entrySet()){
+            characteristic += playerCharacteristic + " ";
+        }
+
+        Formatter str = new Formatter();
+        str.format(this.getName() + ". Номер: " + this.getPlayerNumber() + " " + this.getType().toString().toLowerCase() + ". Позиция: " + this.getPosition()
+                + ". Характеристики: " + characteristic);
         return str.toString();
     }
 
@@ -166,21 +180,4 @@ public class Player {
     public void setCondition(ConditionPlayer сondition) {
         this.сondition = сondition;
     }
-
-
-    @Override
-    public String toString() {
-        String characteristic = "";
-
-        for (Map.Entry<Skill, Integer> playerCharacteristic : this.getCharacteristic().entrySet()){
-            characteristic += playerCharacteristic + " ";
-        }
-
-        Formatter str = new Formatter();
-        str.format(this.getName() + ". Номер: " + this.getPlayerNumber() + " " + this.getType().toString().toLowerCase() + ". Позиция: " + this.getPosition()
-                + ". Характеристики: " + characteristic);
-        return str.toString();
-    }
-
-
 }

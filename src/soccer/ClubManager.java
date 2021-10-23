@@ -15,11 +15,15 @@ public class ClubManager {
         this.name = name;
     }
 
-    public void doTraining(){
-        for(Player player : footballClub.getPlayerArray()){
-            if(player.opportunityToTrain()){
+    public Player deletePlayer(int numPlayer) {
+        return getPlayerArray().remove(numPlayer - 1);
+    }
+
+    public void doTraining() {
+        for (Player player : footballClub.getPlayerArray()) {
+            if (player.opportunityToTrain()) {
                 player.doTrain();
-            }else {
+            } else {
                 System.out.println(player.getName() + " Натренирован по максимуму");
             }
         }
@@ -39,6 +43,7 @@ public class ClubManager {
 
     public void setFootballClub(FootballClub footballClub) {
         this.footballClub = footballClub;
+        free = false;
     }
 
     public String getName() {
@@ -49,7 +54,7 @@ public class ClubManager {
         getPlayerArray().addAll(list);
     }
 
-    public ArrayList<Player> getPlayerArray(){
+    public ArrayList<Player> getPlayerArray() {
         return footballClub.getPlayerArray();
     }
 
